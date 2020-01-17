@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "dd4a3dd9-88fd-45e3-989f-c73eb6772d50",
+		"name": "Create employee using $batch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Employee",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a8f3f1ec-503e-43ec-8e62-23c0414b0b5e",
+						"exec": [
+							"pm.environment.set(\"User\", \"adiiii\");",
+							"pm.environment.set(\"dateOfBirth\", \"abc\");",
+							"pm.environment.set(\"userId\", \"adiii\");",
+							"pm.environment.set(\"username\", \"adit\");",
+							"pm.environment.set(\"firstName\", \"aditya\");",
+							"pm.environment.set(\"lastName\", \"shelar\");",
+							"pm.environment.set(\"personIdExternal\", \"ashelar\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{Password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{Username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Host",
+						"value": "apisalesdemo8.successfactors.com",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "--batch_36522ad7-fc75-4b56-8c71-56071383e77b\r\nContent-Type: multipart/mixed; boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621\r\n\r\n--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621\r\nContent-Transfer-Encoding: binary\r\nContent-Type: application/http\r\n\r\nPOST upsert HTTP/1.1\r\nContent-Type: application/json;type=entry\r\n\r\n{\r\n    \"__metadata\": {\r\n        \"uri\": \"User('{{User}}')\"\r\n    },\r\n    \"username\" : \"{{username}}\",\r\n    \"userId\" : \"{{userId}}\",\r\n    \"status\" : \"Active\",\r\n    \"dateOfBirth\": \"{{dateOfBirth}}\"\r\n}\r\n\r\n--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621\r\nContent-Transfer-Encoding: binary\r\nContent-Type: application/http\r\n\r\nPOST upsert HTTP/1.1\r\nContent-Type: application/json;type=entry\r\n\r\n{\r\n    \"__metadata\": {\r\n        \"uri\": \"PerPerson('{{User}}')\"\r\n    },\r\n    \"personIdExternal\" : \"{{personIdExternal}}\",\r\n    \"userId\" : \"{{userId}}\",\r\n    \"dateOfBirth\" : \"{{dateOfBirth}}\",\r\n    \"countryOfBirth\" : \"USA\"\r\n}\r\n\r\n--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621\r\nContent-Transfer-Encoding: binary\r\nContent-Type: application/http\r\n\r\nPOST upsert HTTP/1.1\r\nContent-Type: application/json;type=entry\r\n\r\n{\r\n    \"__metadata\": {\r\n        \"uri\": \"EmpEmployment(personIdExternal='{{personIdExternal}}',userId='{{userId}}')\"\r\n    },\r\n    \"startDate\":\"/Date(1388534400000)/\",\r\n    \"personIdExternal\": \"{{personIdExternal}}\",\r\n    \"userId\": \"{{userId}}\",\r\n    \"firstDateWorked\" : \"/Date(1388534400000)/\"\r\n}\r\n\r\n--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621\r\nContent-Transfer-Encoding: binary\r\nContent-Type: application/http\r\n\r\nPOST upsert HTTP/1.1\r\nContent-Type: application/json;type=entry\r\n\r\n{\r\n    \"__metadata\": {\r\n        \"uri\": \"EmpJob\"\r\n    },\r\n    \"eventReason\" : \"HIRNEW\",\r\n    \"startDate\" : \"/Date(1388534400000)/\",\r\n    \"jobCode\" : \"50029122\",\r\n    \"userId\" : \"{{userId}}\",\r\n    \"company\" : \"1710\",\r\n\t\"businessUnit\" : \"CORP\",\r\n\t\"managerId\" : \"108736\",\r\n\t\"location\" : \"1710-2003\",\r\n\t\"position\" : \"50023041\",\r\n\t\"payScaleArea\" : \"USA/US2\",\r\n\t\"payScaleType\" : \"USA/US1\",\r\n\t\"department\": \"50150001\",\r\n\t\"costCenter\": \"US10_M6\",\r\n\t\"timezone\" : \"America/New_York\"\r\n}\r\n\r\n--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621\r\nContent-Transfer-Encoding: binary\r\nContent-Type: application/http\r\n\r\nPOST upsert HTTP/1.1\r\nContent-Type: application/json;type=entry\r\n\r\n{\r\n    \"__metadata\": {\r\n        \"uri\": \"PerPersonal(personIdExternal='{{personIdExternal}}',startDate=datetime'2014-01-01T00:00:00')\"\r\n    },\r\n    \"personIdExternal\" : \"{{personIdExternal}}\",\r\n    \"gender\" : \"M\",\r\n    \"firstName\" : \"{{firstName}}\",\r\n    \"lastName\" : \"{{lastName}}\",\r\n    \"nationality\": \"USA\",\r\n    \"nativePreferredLang\": \"10223\"\r\n}\r\n\r\n--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621--\r\n\r\n--batch_36522ad7-fc75-4b56-8c71-56071383e77b--"
+				},
+				"url": {
+					"raw": "{{Host}}/$batch",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"$batch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read User Entity",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{Password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{Username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{Host}}/User('{{userId}}')?$format=JSON",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"User('{{userId}}')"
+					],
+					"query": [
+						{
+							"key": "$format",
+							"value": "JSON"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read EmpEmployment Entity",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{Password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{Username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "HOST",
+						"value": "apisalesdemo8.successfactors.com",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{Host}}/odata/v2/EmpEmployment(personIdExternal='{{personIdExternal}}',userId='{{userId}}')?$format=JSON",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"odata",
+						"v2",
+						"EmpEmployment(personIdExternal='{{personIdExternal}}',userId='{{userId}}')"
+					],
+					"query": [
+						{
+							"key": "$format",
+							"value": "JSON"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read PerPersonal Entity",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{Password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{Username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "HOST",
+						"value": "apisalesdemo8.successfactors.com",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{Host}}/PerPersonal(personIdExternal='{{personIdExternal}}',startDate=datetime'2014-01-01T00:00:00')?$format=JSON",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"PerPersonal(personIdExternal='{{personIdExternal}}',startDate=datetime'2014-01-01T00:00:00')"
+					],
+					"query": [
+						{
+							"key": "$format",
+							"value": "JSON"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1076269f-63bf-41dc-aca0-943864a6bcfc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9878e56f-f025-4bf6-a9f8-de89a49a675f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
